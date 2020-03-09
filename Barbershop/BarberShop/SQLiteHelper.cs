@@ -112,7 +112,30 @@ namespace BarberShop
 				}
 			}
 		}
- 
+        public void ExecuteNonQueryBatch(List<string> list)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                try { conn.Open(); }
+                catch { throw; }
+                using (SQLiteTransaction tran = conn.BeginTransaction())
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(conn))
+                    {
+                        try
+                        {
+                            foreach (var item in list)
+                            {
+                                cmd.CommandText = item;                             
+                                cmd.ExecuteNonQuery();
+                            }
+                            tran.Commit();
+                        }
+                        catch (Exception) { tran.Rollback(); throw; }
+                    }
+                }
+            }
+        }
 		/// <summary>
 		/// 执行查询语句，并返回第一个结果。
 		/// </summary>

@@ -43,7 +43,7 @@ namespace BarberShop
                     textBoxName.Focus();
                     return;
                 }
-                sql = string.Format("insert into goods (Name,Memo) values('{0}','{1}')", name, textBoxMemo.Text.ToString());
+                sql = string.Format("insert into goods (Name,Memo,Price) values('{0}','{1}',{2})", name, textBoxMemo.Text.ToString(),textBoxprice.Text.ToString());
                 try
                 {
                     sh.ExecuteNonQuery(sql);

@@ -77,7 +77,10 @@ namespace BarberShop
            // comboBoxOutGoods.DrawMode = DrawMode.OwnerDrawVariable;
             comboBoxOutGoods.ItemHeight = 20;
         }
-
+        void UpdateMemUser()
+        {
+            InitUser();
+        }
         private void buttonOutAdd_Click(object sender, EventArgs e)
         {
            String goods =  comboBoxOutGoods.Text;
@@ -85,14 +88,28 @@ namespace BarberShop
            String user = comboBoxOutUser.Text;
             int userid = DB.GetUserID(user);
             int goodsid = DB.GetGoodsID(goods);
+            SQLiteHelper sh = new SQLiteHelper();
+            string sql = string.Format("select Number from goods where ID= {0}", goodsid);
+            DataTable dt = sh.ExecuteQuery(sql);
+           int total = int.Parse( dt.Rows[0][0].ToString());
+
+           if (total < number)
+           {
+               MessageBox.Show(string.Format("库存不足（现有数量:{0})！", total));
+               return;
+           }
+
             string outdate = dateTimePickerOut.Value.ToString("yyyy-MM-dd");
            string memo = textBoxMemo.Text;
-            string sql = string.Format("insert into outbound (User,UserID,GoodsID,GoodsName,Number,OutDate,Memo) values ('{0}','{1}',{2},'{3}','{4}','{5}','{6}')",
+           string   sql1 = string.Format("insert into outbound (User,UserID,GoodsID,GoodsName,Number,OutDate,Memo) values ('{0}','{1}',{2},'{3}','{4}','{5}','{6}')",
                 user,userid,goodsid,goods,number,outdate,memo);
-            SQLiteHelper sh = new SQLiteHelper();
+           string sql2 = string.Format("update goods set Number=Number-{0} where ID = {1}", number, goodsid);
+            
             try
             {
-                sh.ExecuteNonQuery(sql);
+                List<string> ls = new List<string>();
+                ls.Add(sql1); ls.Add(sql2);
+                sh.ExecuteNonQueryBatch(ls);
             }
             catch (Exception)
             {
@@ -116,6 +133,7 @@ namespace BarberShop
                     OnSelOutbound();
                     break;
                 case 1:
+                    OnSelInBound();
                     break;
                 case 2:
                     OnSelMaintain();
@@ -145,7 +163,6 @@ namespace BarberShop
                 comboBoxOutUser.SelectedIndex = 0;
             }
 
-
             updateOutboundGrid();
 
 
@@ -153,7 +170,7 @@ namespace BarberShop
         void updateOutboundGrid()
         {
             String date = DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
-            string sql = string.Format("select * from outbound where OutDate >= '{0}' order by OutDate desc", date);
+            string sql = string.Format("select * from outbound where OutDate >= '{0}' and Deleted = 'F' order by OutDate desc", date);
             SQLiteHelper sh = new SQLiteHelper();
             try
             {
@@ -200,6 +217,59 @@ namespace BarberShop
         }
         void OnSelInBound()
         {
+            comboBoxInGoods.Items.Clear();
+            foreach (Goods g in DB.AllGoods)
+            {
+                int index = comboBoxInGoods.Items.Add(g.name);
+            }
+            if (comboBoxInGoods.Items.Count > 0)
+            {
+                comboBoxInGoods.SelectedIndex = 0;
+            }
+            updateInboundGrid();
+        }
+        void updateInboundGrid()
+        {
+            listViewInbound.Items.Clear();
+            String date = DateTime.Now.AddDays(-6).ToString("yyyy-MM-dd");
+            string sql = string.Format("select * from inbound where InDate >= '{0}' and Deleted = 'F' order by InDate desc", date);
+            SQLiteHelper sh = new SQLiteHelper();
+            DataTable dt = sh.ExecuteQuery(sql);
+            string coldate = "";
+            int colorIndex = 1;
+            foreach(DataRow dr in dt.Rows)
+            {
+                ListViewItem lvi = new ListViewItem ();
+                string goodsName = dr["GoodsName"].ToString(); ;
+                string id = dr["ID"].ToString();
+                string number = dr["Number"].ToString();
+                string[] t =  dr["InDate"].ToString().Split(' ');
+                string indate =t[0];
+                string memo = dr["Memo"].ToString();
+                lvi.Text = goodsName;
+                lvi.SubItems.Add( number);
+                lvi.SubItems.Add( indate);
+                lvi.SubItems.Add( memo);
+               ListViewItem rlvi =  listViewInbound.Items.Add(lvi);
+               rlvi.Tag = id;
+               if (coldate.Length == 0)
+                   coldate = indate;
+               if (coldate != indate && coldate.Length > 0)
+               {
+                   colorIndex *= -1;
+                   coldate = indate;
+               }
+               if (colorIndex == -1)
+               {
+                   rlvi.BackColor = Color.FromArgb(225, 255, 255);
+               }
+               else
+               {
+                   rlvi.BackColor = Color.FromArgb(255, 255, 255);
+               }
+                   
+            }
+
         }
         void OnSelMaintain()
         {
@@ -235,7 +305,28 @@ namespace BarberShop
         private void buttonInSave_Click(object sender, EventArgs e)
         {
             string newgoods = comboBoxInGoods.Text;
-           
+            int gid =  DB.GetGoodsID(newgoods);
+            string number = textBoxInNumber.Text;
+            string memo = textBoxInboundMemo.Text;
+            string date = dateTimePickerInbound.Value.ToString("yyyy-MM-dd");
+            string sql = string.Format("update goods set Number=Number+{0} where ID = {1}", number,gid);
+            string sql1 = string.Format("insert into inbound (GoodsName,GoodsID,InDate,Number,Memo) values('{0}',{1},'{2}',{3},'{4}')",
+                newgoods, gid, date, number,memo);
+            SQLiteHelper sh = new SQLiteHelper();
+            try
+            {
+                List<string> ls = new List<string>();
+                ls.Add(sql);
+                ls.Add(sql1);
+                sh.ExecuteNonQueryBatch(ls);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("入库失败");
+                return;
+            }
+            textBoxInboundMemo.Text = "";
+            updateInboundGrid();
            // sh.ExecuteQuery("insert into goods (Name,Memo) values('{0}','{1}')",
         }
 
@@ -246,32 +337,98 @@ namespace BarberShop
             {
 
             }
-            UpdateGoods();
+            UpdateMemGoods();
             OnSelMaintain();
         }
-        void UpdateGoods()
+        void UpdateMemGoods()
         {
             InitGoods();
         }
 
         private void buttonOutboundDel_Click(object sender, EventArgs e)
         {
-         //   listViewOutbound.ind
-                  ListView.SelectedIndexCollection c = listViewOutbound.SelectedIndices;
-                  if (c.Count == 0)
-                  {
-                      MessageBox.Show("请选择一行");
-                      return;
-                  }
-                  string user = listViewOutbound.Items[c[0]].Text,
-                      goods = listViewOutbound.Items[c[0]].SubItems[1].Text.ToString(),
-            number = listViewOutbound.Items[c[0]].SubItems[2].Text.ToString(),
-            date = listViewOutbound.Items[c[0]].SubItems[3].Text.ToString();
-            string text = string.Format("您确定要删除   {0}在{1}出库的{2}?",user,date,goods);
-            MessageBox.Show(text);
-                  string mediaRtspUrl = listViewOutbound.Items[c[0]].Tag.ToString();
+            //   listViewOutbound.ind
+            ListView.SelectedIndexCollection c = listViewOutbound.SelectedIndices;
+            if (c.Count == 0)
+            {
+                MessageBox.Show("请选择一行");
+                return;
+            }
+            ListViewItem lvi = listViewOutbound.Items[c[0]];
+            string user = lvi.Text, goods = lvi.SubItems[1].Text.ToString(),
+                number = lvi.SubItems[2].Text.ToString(), date = lvi.SubItems[3].Text.ToString();
+            int goodsid =  DB.GetGoodsID(goods);
+            string text = string.Format("您确定要取消   {0},{1},{2}?", user, date, goods);
+            if (MessageBox.Show(text, "提示", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                return;
+            string outboundID = listViewOutbound.Items[c[0]].Tag.ToString();
+            string sql1 = string.Format("update outbound set Deleted = 'T' where ID={0}", outboundID);
+            string sql2 = string.Format("update goods set Number=Number+{0} where ID={1}", number,goodsid);
+            SQLiteHelper sh = new SQLiteHelper();
+            List<string> ls = new List<string> ();
+            ls.Add(sql1);
+            ls.Add(sql2);
+            try
+            {
+                sh.ExecuteNonQueryBatch(ls);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("删除失败");
+                return;
+            }
+            listViewOutbound.Items.Remove(lvi);
         }
 
+        private void buttonInboundDel_Click(object sender, EventArgs e)
+        {
+
+            ListView.SelectedIndexCollection c = listViewInbound.SelectedIndices;
+            if (c.Count == 0)
+            {
+                MessageBox.Show("请选择一行");
+                return;
+            }
+            ListViewItem lvi = listViewInbound.Items[c[0]];
+            string goods = lvi.Text, number = lvi.SubItems[1].Text.ToString(),
+                date = lvi.SubItems[2].Text.ToString();
+            int goodsid = DB.GetGoodsID(goods);
+            string text = string.Format("您确定要取消此条入库信息({0},{1})", goods,date);
+            if (MessageBox.Show(text, "提示", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                return;
+            string inboundID = listViewInbound.Items[c[0]].Tag.ToString();
+            string sql1 = string.Format("update inbound set Deleted = 'T' where ID={0}", inboundID);
+            string sql2 = string.Format("update goods set Number=Number-{0} where ID={1}", number, goodsid);
+            SQLiteHelper sh = new SQLiteHelper();
+            List<string> ls = new List<string>();
+            ls.Add(sql1);
+            ls.Add(sql2);
+            try
+            {
+                sh.ExecuteNonQueryBatch(ls);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("删除失败");
+                return;
+            }
+            listViewInbound.Items.Remove(lvi);
+        }
+
+        private void buttonGoodsDel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonUserAdd_Click(object sender, EventArgs e)
+        {
+            UserEdit ue = new UserEdit();
+            ue.ShowDialog();
+            UpdateMemUser();
+            OnSelMaintain();
+        }
+
+      
       
     }
 }

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.outbound = new System.Windows.Forms.TabPage();
+            this.buttonOutboundDel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxMemo = new System.Windows.Forms.TextBox();
             this.buttonOutAdd = new System.Windows.Forms.Button();
@@ -52,30 +53,36 @@
             this.inbound = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonInSave = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerInbound = new System.Windows.Forms.DateTimePicker();
             this.textBoxInNumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxInGoods = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewInbound = new System.Windows.Forms.ListView();
             this.maintain = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.listViewUser = new System.Windows.Forms.ListView();
             this.chUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chUserTel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chUserMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.buttonUserAdd = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listViewGoods = new System.Windows.Forms.ListView();
             this.chGoodsName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chGoodsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chGoodsMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonGoodsDel = new System.Windows.Forms.Button();
             this.buttonGoodsAdd = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.TabPage();
-            this.chGoodsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chUserMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonOutboundDel = new System.Windows.Forms.Button();
+            this.chInboundGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chInboundNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chInboundDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chInboundMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxInboundMemo = new System.Windows.Forms.TextBox();
+            this.buttonInboundDel = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.outbound.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -112,6 +119,16 @@
             this.outbound.TabIndex = 0;
             this.outbound.Text = "出库";
             this.outbound.UseVisualStyleBackColor = true;
+            // 
+            // buttonOutboundDel
+            // 
+            this.buttonOutboundDel.Location = new System.Drawing.Point(228, 483);
+            this.buttonOutboundDel.Name = "buttonOutboundDel";
+            this.buttonOutboundDel.Size = new System.Drawing.Size(91, 33);
+            this.buttonOutboundDel.TabIndex = 5;
+            this.buttonOutboundDel.Text = "删除";
+            this.buttonOutboundDel.UseVisualStyleBackColor = true;
+            this.buttonOutboundDel.Click += new System.EventHandler(this.buttonOutboundDel_Click);
             // 
             // groupBox1
             // 
@@ -247,7 +264,7 @@
             this.listViewOutbound.GridLines = true;
             this.listViewOutbound.Location = new System.Drawing.Point(20, 20);
             this.listViewOutbound.Name = "listViewOutbound";
-            this.listViewOutbound.Size = new System.Drawing.Size(600, 405);
+            this.listViewOutbound.Size = new System.Drawing.Size(600, 445);
             this.listViewOutbound.TabIndex = 0;
             this.listViewOutbound.UseCompatibleStateImageBehavior = false;
             this.listViewOutbound.View = System.Windows.Forms.View.Details;
@@ -279,8 +296,9 @@
             // 
             // inbound
             // 
+            this.inbound.Controls.Add(this.buttonInboundDel);
             this.inbound.Controls.Add(this.groupBox2);
-            this.inbound.Controls.Add(this.listView1);
+            this.inbound.Controls.Add(this.listViewInbound);
             this.inbound.Location = new System.Drawing.Point(4, 26);
             this.inbound.Name = "inbound";
             this.inbound.Padding = new System.Windows.Forms.Padding(3);
@@ -291,23 +309,25 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxInboundMemo);
             this.groupBox2.Controls.Add(this.buttonInSave);
-            this.groupBox2.Controls.Add(this.dateTimePicker2);
+            this.groupBox2.Controls.Add(this.dateTimePickerInbound);
             this.groupBox2.Controls.Add(this.textBoxInNumber);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.comboBoxInGoods);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(653, 20);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(286, 265);
+            this.groupBox2.Size = new System.Drawing.Size(286, 445);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "新增入库";
             // 
             // buttonInSave
             // 
-            this.buttonInSave.Location = new System.Drawing.Point(112, 207);
+            this.buttonInSave.Location = new System.Drawing.Point(110, 390);
             this.buttonInSave.Name = "buttonInSave";
             this.buttonInSave.Size = new System.Drawing.Size(80, 28);
             this.buttonInSave.TabIndex = 5;
@@ -316,12 +336,12 @@
             this.buttonInSave.UseVisualStyleBackColor = true;
             this.buttonInSave.Click += new System.EventHandler(this.buttonInSave_Click);
             // 
-            // dateTimePicker2
+            // dateTimePickerInbound
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(110, 144);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(157, 26);
-            this.dateTimePicker2.TabIndex = 4;
+            this.dateTimePickerInbound.Location = new System.Drawing.Point(110, 144);
+            this.dateTimePickerInbound.Name = "dateTimePickerInbound";
+            this.dateTimePickerInbound.Size = new System.Drawing.Size(157, 26);
+            this.dateTimePickerInbound.TabIndex = 4;
             // 
             // textBoxInNumber
             // 
@@ -338,8 +358,8 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 16);
             this.label5.TabIndex = 1;
-            this.label5.Tag = "日期";
-            this.label5.Text = "数量";
+            this.label5.Tag = "";
+            this.label5.Text = "日期";
             // 
             // label6
             // 
@@ -368,13 +388,21 @@
             this.label8.TabIndex = 1;
             this.label8.Text = "货品";
             // 
-            // listView1
+            // listViewInbound
             // 
-            this.listView1.Location = new System.Drawing.Point(20, 20);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(600, 500);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewInbound.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chInboundGoods,
+            this.chInboundNumber,
+            this.chInboundDate,
+            this.chInboundMemo});
+            this.listViewInbound.FullRowSelect = true;
+            this.listViewInbound.GridLines = true;
+            this.listViewInbound.Location = new System.Drawing.Point(20, 20);
+            this.listViewInbound.Name = "listViewInbound";
+            this.listViewInbound.Size = new System.Drawing.Size(600, 445);
+            this.listViewInbound.TabIndex = 0;
+            this.listViewInbound.UseCompatibleStateImageBehavior = false;
+            this.listViewInbound.View = System.Windows.Forms.View.Details;
             // 
             // maintain
             // 
@@ -391,7 +419,7 @@
             // 
             this.groupBox4.Controls.Add(this.listViewUser);
             this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Controls.Add(this.button5);
+            this.groupBox4.Controls.Add(this.buttonUserAdd);
             this.groupBox4.Location = new System.Drawing.Point(490, 11);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(470, 508);
@@ -425,6 +453,11 @@
             this.chUserTel.Text = "电话";
             this.chUserTel.Width = 150;
             // 
+            // chUserMemo
+            // 
+            this.chUserMemo.Text = "备注";
+            this.chUserMemo.Width = 150;
+            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(295, 449);
@@ -434,14 +467,15 @@
             this.button4.Text = "删除";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // buttonUserAdd
             // 
-            this.button5.Location = new System.Drawing.Point(129, 449);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(73, 35);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "增加";
-            this.button5.UseVisualStyleBackColor = true;
+            this.buttonUserAdd.Location = new System.Drawing.Point(129, 449);
+            this.buttonUserAdd.Name = "buttonUserAdd";
+            this.buttonUserAdd.Size = new System.Drawing.Size(73, 35);
+            this.buttonUserAdd.TabIndex = 1;
+            this.buttonUserAdd.Text = "增加";
+            this.buttonUserAdd.UseVisualStyleBackColor = true;
+            this.buttonUserAdd.Click += new System.EventHandler(this.buttonUserAdd_Click);
             // 
             // groupBox3
             // 
@@ -476,6 +510,11 @@
             this.chGoodsName.Text = "名称";
             this.chGoodsName.Width = 150;
             // 
+            // chGoodsPrice
+            // 
+            this.chGoodsPrice.Text = "价格";
+            this.chGoodsPrice.Width = 70;
+            // 
             // chGoodsMemo
             // 
             this.chGoodsMemo.Text = "备注";
@@ -489,6 +528,7 @@
             this.buttonGoodsDel.TabIndex = 1;
             this.buttonGoodsDel.Text = "删除";
             this.buttonGoodsDel.UseVisualStyleBackColor = true;
+            this.buttonGoodsDel.Click += new System.EventHandler(this.buttonGoodsDel_Click);
             // 
             // buttonGoodsAdd
             // 
@@ -509,25 +549,53 @@
             this.search.Text = "查询";
             this.search.UseVisualStyleBackColor = true;
             // 
-            // chGoodsPrice
+            // chInboundGoods
             // 
-            this.chGoodsPrice.Text = "价格";
-            this.chGoodsPrice.Width = 70;
+            this.chInboundGoods.Text = "货品";
+            this.chInboundGoods.Width = 150;
             // 
-            // chUserMemo
+            // chInboundNumber
             // 
-            this.chUserMemo.Text = "备注";
-            this.chUserMemo.Width = 150;
+            this.chInboundNumber.Text = "数量";
+            this.chInboundNumber.Width = 70;
             // 
-            // buttonOutboundDel
+            // chInboundDate
             // 
-            this.buttonOutboundDel.Location = new System.Drawing.Point(227, 462);
-            this.buttonOutboundDel.Name = "buttonOutboundDel";
-            this.buttonOutboundDel.Size = new System.Drawing.Size(91, 33);
-            this.buttonOutboundDel.TabIndex = 5;
-            this.buttonOutboundDel.Text = "删除";
-            this.buttonOutboundDel.UseVisualStyleBackColor = true;
-            this.buttonOutboundDel.Click += new System.EventHandler(this.buttonOutboundDel_Click);
+            this.chInboundDate.Text = "日期";
+            this.chInboundDate.Width = 120;
+            // 
+            // chInboundMemo
+            // 
+            this.chInboundMemo.Text = "备注";
+            this.chInboundMemo.Width = 200;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(23, 213);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(42, 16);
+            this.label9.TabIndex = 1;
+            this.label9.Tag = "";
+            this.label9.Text = "备注";
+            // 
+            // textBoxInboundMemo
+            // 
+            this.textBoxInboundMemo.Location = new System.Drawing.Point(109, 206);
+            this.textBoxInboundMemo.Multiline = true;
+            this.textBoxInboundMemo.Name = "textBoxInboundMemo";
+            this.textBoxInboundMemo.Size = new System.Drawing.Size(157, 153);
+            this.textBoxInboundMemo.TabIndex = 6;
+            // 
+            // buttonInboundDel
+            // 
+            this.buttonInboundDel.Location = new System.Drawing.Point(227, 490);
+            this.buttonInboundDel.Name = "buttonInboundDel";
+            this.buttonInboundDel.Size = new System.Drawing.Size(119, 39);
+            this.buttonInboundDel.TabIndex = 6;
+            this.buttonInboundDel.Text = "删除";
+            this.buttonInboundDel.UseVisualStyleBackColor = true;
+            this.buttonInboundDel.Click += new System.EventHandler(this.buttonInboundDel_Click);
             // 
             // Form1
             // 
@@ -561,7 +629,7 @@
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage outbound;
         private System.Windows.Forms.TabPage inbound;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewInbound;
         private System.Windows.Forms.TabPage maintain;
         private System.Windows.Forms.ListView listViewOutbound;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -576,7 +644,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonInSave;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePickerInbound;
         private System.Windows.Forms.TextBox textBoxInNumber;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -586,7 +654,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button buttonUserAdd;
         private System.Windows.Forms.Button buttonGoodsDel;
         private System.Windows.Forms.Button buttonGoodsAdd;
         private System.Windows.Forms.ListView listViewUser;
@@ -605,6 +673,13 @@
         private System.Windows.Forms.ColumnHeader chGoodsPrice;
         private System.Windows.Forms.ColumnHeader chUserMemo;
         private System.Windows.Forms.Button buttonOutboundDel;
+        private System.Windows.Forms.ColumnHeader chInboundGoods;
+        private System.Windows.Forms.ColumnHeader chInboundNumber;
+        private System.Windows.Forms.ColumnHeader chInboundDate;
+        private System.Windows.Forms.ColumnHeader chInboundMemo;
+        private System.Windows.Forms.TextBox textBoxInboundMemo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonInboundDel;
     }
 }
 
