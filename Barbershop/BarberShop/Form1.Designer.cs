@@ -83,6 +83,10 @@
             this.buttonGoodsDel = new System.Windows.Forms.Button();
             this.buttonGoodsAdd = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.TabPage();
+            this.chGoodsTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.labelDatetime = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.outbound.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -109,6 +113,7 @@
             // 
             // outbound
             // 
+            this.outbound.Controls.Add(this.label11);
             this.outbound.Controls.Add(this.buttonOutboundDel);
             this.outbound.Controls.Add(this.groupBox1);
             this.outbound.Controls.Add(this.listViewOutbound);
@@ -122,7 +127,7 @@
             // 
             // buttonOutboundDel
             // 
-            this.buttonOutboundDel.Location = new System.Drawing.Point(228, 483);
+            this.buttonOutboundDel.Location = new System.Drawing.Point(227, 498);
             this.buttonOutboundDel.Name = "buttonOutboundDel";
             this.buttonOutboundDel.Size = new System.Drawing.Size(91, 33);
             this.buttonOutboundDel.TabIndex = 5;
@@ -262,7 +267,7 @@
             this.chMemo});
             this.listViewOutbound.FullRowSelect = true;
             this.listViewOutbound.GridLines = true;
-            this.listViewOutbound.Location = new System.Drawing.Point(20, 20);
+            this.listViewOutbound.Location = new System.Drawing.Point(20, 46);
             this.listViewOutbound.Name = "listViewOutbound";
             this.listViewOutbound.Size = new System.Drawing.Size(600, 445);
             this.listViewOutbound.TabIndex = 0;
@@ -292,13 +297,14 @@
             // chMemo
             // 
             this.chMemo.Text = "备注";
-            this.chMemo.Width = 140;
+            this.chMemo.Width = 130;
             // 
             // inbound
             // 
             this.inbound.Controls.Add(this.buttonInboundDel);
             this.inbound.Controls.Add(this.groupBox2);
             this.inbound.Controls.Add(this.listViewInbound);
+            this.inbound.Controls.Add(this.label10);
             this.inbound.Location = new System.Drawing.Point(4, 26);
             this.inbound.Name = "inbound";
             this.inbound.Padding = new System.Windows.Forms.Padding(3);
@@ -309,7 +315,7 @@
             // 
             // buttonInboundDel
             // 
-            this.buttonInboundDel.Location = new System.Drawing.Point(227, 490);
+            this.buttonInboundDel.Location = new System.Drawing.Point(227, 498);
             this.buttonInboundDel.Name = "buttonInboundDel";
             this.buttonInboundDel.Size = new System.Drawing.Size(119, 39);
             this.buttonInboundDel.TabIndex = 6;
@@ -405,6 +411,7 @@
             this.comboBoxInGoods.Location = new System.Drawing.Point(110, 33);
             this.comboBoxInGoods.Name = "comboBoxInGoods";
             this.comboBoxInGoods.Size = new System.Drawing.Size(157, 24);
+            this.comboBoxInGoods.Sorted = true;
             this.comboBoxInGoods.TabIndex = 2;
             // 
             // label8
@@ -425,7 +432,7 @@
             this.chInboundMemo});
             this.listViewInbound.FullRowSelect = true;
             this.listViewInbound.GridLines = true;
-            this.listViewInbound.Location = new System.Drawing.Point(20, 20);
+            this.listViewInbound.Location = new System.Drawing.Point(20, 46);
             this.listViewInbound.Name = "listViewInbound";
             this.listViewInbound.Size = new System.Drawing.Size(600, 445);
             this.listViewInbound.TabIndex = 0;
@@ -542,6 +549,7 @@
             // 
             this.listViewGoods.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chGoodsName,
+            this.chGoodsTotal,
             this.chGoodsPrice,
             this.chGoodsMemo});
             this.listViewGoods.FullRowSelect = true;
@@ -567,7 +575,7 @@
             // chGoodsMemo
             // 
             this.chGoodsMemo.Text = "备注";
-            this.chGoodsMemo.Width = 170;
+            this.chGoodsMemo.Width = 120;
             // 
             // buttonGoodsDel
             // 
@@ -598,30 +606,67 @@
             this.search.Text = "查询";
             this.search.UseVisualStyleBackColor = true;
             // 
+            // chGoodsTotal
+            // 
+            this.chGoodsTotal.Text = "库存";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(127, 16);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "最近七天明细：";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(127, 16);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "最近七天明细：";
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelDatetime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.labelDatetime.Location = new System.Drawing.Point(809, 13);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(188, 16);
+            this.labelDatetime.TabIndex = 1;
+            this.labelDatetime.Text = "2019-03-10  20:36:48";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1013, 597);
+            this.Controls.Add(this.labelDatetime);
             this.Controls.Add(this.tabControlMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "简易出入库管理";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControlMain.ResumeLayout(false);
             this.outbound.ResumeLayout(false);
+            this.outbound.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.inbound.ResumeLayout(false);
+            this.inbound.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.maintain.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -681,6 +726,10 @@
         private System.Windows.Forms.TextBox textBoxInboundMemo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonInboundDel;
+        private System.Windows.Forms.ColumnHeader chGoodsTotal;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label labelDatetime;
     }
 }
 

@@ -12,9 +12,18 @@ namespace BarberShop
     public partial class Form1 : Form
     {
         string _db = "";
+        Timer _timer = new Timer();
         public Form1()
         {
             InitializeComponent();
+            _timer.Interval = 1000;
+            _timer.Tick += new EventHandler(_timer_Tick);
+            _timer.Start();
+        }
+
+        void _timer_Tick(object sender, EventArgs e)
+        {
+            labelDatetime.Text =  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
         }
         bool InitGoods()
         {
@@ -273,6 +282,9 @@ namespace BarberShop
         }
         void OnSelMaintain()
         {
+            UpdateMemGoods();
+            UpdateMemUser();
+
             UpdateGoodsGrid();
             UpdateUserGrid();          
         }
@@ -284,7 +296,8 @@ namespace BarberShop
             {
                 ListViewItem lvi = new ListViewItem();
                 lvi.Text = gs.name;
-                lvi.SubItems.Add(string.Format("{0}", gs.price));
+                lvi.SubItems.Add(string.Format("{0}",gs.number));
+                lvi.SubItems.Add(string.Format("{0}", gs.price));               
                 lvi.SubItems.Add(gs.memo);
                 ListViewItem lr = listViewGoods.Items.Insert(i, lvi);
                 lr.Tag = gs.id;
@@ -431,6 +444,12 @@ namespace BarberShop
                 return;
             }
             ListViewItem lvi = listViewGoods.Items[c[0]];
+            int number = int.Parse(lvi.SubItems[1].Text);
+            if (number > 0)
+            {
+                MessageBox.Show("库存未清空，禁止删除！");
+                return;
+            }
             int id = (int)lvi.Tag;
             if (MessageBox.Show(string.Format("确定要删除'{0}'?", lvi.Text), "提示", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                 return;
