@@ -31,9 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxName = new System.Windows.Forms.TextBox();
+            this.textBoxTel = new System.Windows.Forms.TextBox();
+            this.textBoxMemo = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -67,47 +67,47 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "备注";
             // 
-            // textBox1
+            // textBoxName
             // 
-            this.textBox1.Location = new System.Drawing.Point(91, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(160, 26);
-            this.textBox1.TabIndex = 1;
+            this.textBoxName.Location = new System.Drawing.Point(91, 28);
+            this.textBoxName.Name = "textBoxName";
+            this.textBoxName.Size = new System.Drawing.Size(160, 26);
+            this.textBoxName.TabIndex = 0;
             // 
-            // textBox2
+            // textBoxTel
             // 
-            this.textBox2.Location = new System.Drawing.Point(91, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(160, 26);
-            this.textBox2.TabIndex = 1;
+            this.textBoxTel.Location = new System.Drawing.Point(91, 71);
+            this.textBoxTel.Name = "textBoxTel";
+            this.textBoxTel.Size = new System.Drawing.Size(160, 26);
+            this.textBoxTel.TabIndex = 1;
             // 
-            // textBox3
+            // textBoxMemo
             // 
-            this.textBox3.Location = new System.Drawing.Point(91, 116);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(160, 95);
-            this.textBox3.TabIndex = 1;
+            this.textBoxMemo.Location = new System.Drawing.Point(91, 116);
+            this.textBoxMemo.Multiline = true;
+            this.textBoxMemo.Name = "textBoxMemo";
+            this.textBoxMemo.Size = new System.Drawing.Size(160, 95);
+            this.textBoxMemo.TabIndex = 2;
             // 
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(113, 231);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 27);
-            this.buttonSave.TabIndex = 2;
+            this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "保存";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // User
+            // UserEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(287, 277);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxMemo);
+            this.Controls.Add(this.textBoxTel);
+            this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -115,7 +115,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "User";
+            this.Name = "UserEdit";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,9 +128,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.TextBox textBoxTel;
+        private System.Windows.Forms.TextBox textBoxMemo;
         private System.Windows.Forms.Button buttonSave;
     }
 }

@@ -37,3 +37,13 @@ E:\Git\Barbershop\BarberShop\obj\x86\Debug\BarberShop.GoodsEdit.resources
 E:\Git\Barbershop\BarberShop\obj\x86\Debug\BarberShop.Properties.Resources.resources
 E:\Git\Barbershop\BarberShop\obj\x86\Debug\BarberShop.csproj.GenerateResource.Cache
 E:\Git\Barbershop\BarberShop\obj\x86\Debug\BarberShop.UserEdit.resources
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.exe
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.pdb
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\BarberShop.exe
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\BarberShop.pdb
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\System.Data.SQLite.dll
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.Form1.resources
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.GoodsEdit.resources
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.Properties.Resources.resources
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.UserEdit.resources
+D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.csproj.GenerateResource.Cache

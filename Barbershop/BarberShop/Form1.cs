@@ -273,6 +273,11 @@ namespace BarberShop
         }
         void OnSelMaintain()
         {
+            UpdateGoodsGrid();
+            UpdateUserGrid();          
+        }
+        void UpdateGoodsGrid()
+        {
             listViewGoods.Items.Clear();
             int i = 0;
             foreach (Goods gs in DB.AllGoods)
@@ -285,9 +290,11 @@ namespace BarberShop
                 lr.Tag = gs.id;
                 ++i;
             }
-
-            listViewUser.Items.Clear();
-            i = 0;
+        }
+        void UpdateUserGrid()
+        {
+            int i = 0;
+            listViewUser.Items.Clear();           
             foreach (User us in DB.AllUser)
             {
                 ListViewItem lvi = new ListViewItem();
@@ -417,7 +424,21 @@ namespace BarberShop
 
         private void buttonGoodsDel_Click(object sender, EventArgs e)
         {
-
+            ListView.SelectedIndexCollection c = listViewGoods.SelectedIndices;
+            if (c.Count == 0)
+            {
+                MessageBox.Show("请选择一行");
+                return;
+            }
+            ListViewItem lvi = listViewGoods.Items[c[0]];
+            int id = (int)lvi.Tag;
+            if (MessageBox.Show(string.Format("确定要删除'{0}'?", lvi.Text), "提示", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            string sql = string.Format("update goods set Deleted = 'T' where id = {0}", id);
+            SQLiteHelper sh = new SQLiteHelper();
+            sh.ExecuteNonQuery(sql);
+            UpdateMemGoods();
+            listViewGoods.Items.Remove(lvi);
         }
 
         private void buttonUserAdd_Click(object sender, EventArgs e)
@@ -426,6 +447,26 @@ namespace BarberShop
             ue.ShowDialog();
             UpdateMemUser();
             OnSelMaintain();
+        }
+
+        private void buttonUserDel_Click(object sender, EventArgs e)
+        {
+
+            ListView.SelectedIndexCollection c = listViewUser.SelectedIndices;
+            if (c.Count == 0)
+            {
+                MessageBox.Show("请选择一行");
+                return;
+            }
+            ListViewItem lvi = listViewUser.Items[c[0]];
+            int id = (int)lvi.Tag;
+            if (MessageBox.Show(string.Format("确定要删除'{0}'?", lvi.Text), "提示", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                return;
+            string sql = string.Format("update user set Deleted = 'T' where id = {0}", id);
+            SQLiteHelper sh = new SQLiteHelper();
+            sh.ExecuteNonQuery(sql);
+            UpdateMemUser();
+            listViewUser.Items.Remove(lvi);
         }
 
       
