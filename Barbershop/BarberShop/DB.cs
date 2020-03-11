@@ -41,9 +41,7 @@ namespace BarberShop
     class Goods
     {
         public int id { get; set; }
-        public string name { get; set; }
-        public int number { get; set; }
-        public string memo { get; set; }
-        public int price { get; set; }
+        public string name { get; set; }      
+        public string memo { get; set; }       
     }
 }

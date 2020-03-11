@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.outbound = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
             this.buttonOutboundDel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxMemo = new System.Windows.Forms.TextBox();
@@ -47,6 +48,7 @@
             this.listViewOutbound = new System.Windows.Forms.ListView();
             this.chOutUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOutGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chOutUnitPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOutNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chOutDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -56,17 +58,21 @@
             this.textBoxInboundMemo = new System.Windows.Forms.TextBox();
             this.buttonInSave = new System.Windows.Forms.Button();
             this.dateTimePickerInbound = new System.Windows.Forms.DateTimePicker();
+            this.textBoxInUnitPrice = new System.Windows.Forms.TextBox();
             this.textBoxInNumber = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxInGoods = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.listViewInbound = new System.Windows.Forms.ListView();
             this.chInboundGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chInboundUnitPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chInboundNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chInboundDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chInboundMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label10 = new System.Windows.Forms.Label();
             this.maintain = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.listViewUser = new System.Windows.Forms.ListView();
@@ -78,15 +84,23 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.listViewGoods = new System.Windows.Forms.ListView();
             this.chGoodsName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.chGoodsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chGoodsTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chGoodsMemo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonGoodsDel = new System.Windows.Forms.Button();
             this.buttonGoodsAdd = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.TabPage();
-            this.chGoodsTotal = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.labelDatetime = new System.Windows.Forms.Label();
+            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStop = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
+            this.buttonStaticStart = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listViewStatic = new System.Windows.Forms.ListView();
+            this.chStaticUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chStaticGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chStaticNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chStaticUnitPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.chStaticDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControlMain.SuspendLayout();
             this.outbound.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -95,6 +109,7 @@
             this.maintain.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.search.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -124,6 +139,15 @@
             this.outbound.TabIndex = 0;
             this.outbound.Text = "出库";
             this.outbound.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 20);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(127, 16);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "最近七天明细：";
             // 
             // buttonOutboundDel
             // 
@@ -262,6 +286,7 @@
             this.listViewOutbound.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chOutUser,
             this.chOutGoods,
+            this.chOutUnitPrice,
             this.chOutNumber,
             this.chOutDate,
             this.chMemo});
@@ -283,6 +308,10 @@
             // 
             this.chOutGoods.Text = "货品";
             this.chOutGoods.Width = 150;
+            // 
+            // chOutUnitPrice
+            // 
+            this.chOutUnitPrice.Text = "单价";
             // 
             // chOutNumber
             // 
@@ -328,9 +357,11 @@
             this.groupBox2.Controls.Add(this.textBoxInboundMemo);
             this.groupBox2.Controls.Add(this.buttonInSave);
             this.groupBox2.Controls.Add(this.dateTimePickerInbound);
+            this.groupBox2.Controls.Add(this.textBoxInUnitPrice);
             this.groupBox2.Controls.Add(this.textBoxInNumber);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.comboBoxInGoods);
             this.groupBox2.Controls.Add(this.label8);
@@ -343,11 +374,11 @@
             // 
             // textBoxInboundMemo
             // 
-            this.textBoxInboundMemo.Location = new System.Drawing.Point(109, 206);
+            this.textBoxInboundMemo.Location = new System.Drawing.Point(109, 229);
             this.textBoxInboundMemo.Multiline = true;
             this.textBoxInboundMemo.Name = "textBoxInboundMemo";
-            this.textBoxInboundMemo.Size = new System.Drawing.Size(157, 153);
-            this.textBoxInboundMemo.TabIndex = 6;
+            this.textBoxInboundMemo.Size = new System.Drawing.Size(157, 130);
+            this.textBoxInboundMemo.TabIndex = 4;
             // 
             // buttonInSave
             // 
@@ -362,23 +393,31 @@
             // 
             // dateTimePickerInbound
             // 
-            this.dateTimePickerInbound.Location = new System.Drawing.Point(110, 144);
+            this.dateTimePickerInbound.Location = new System.Drawing.Point(110, 176);
             this.dateTimePickerInbound.Name = "dateTimePickerInbound";
             this.dateTimePickerInbound.Size = new System.Drawing.Size(157, 26);
-            this.dateTimePickerInbound.TabIndex = 4;
+            this.dateTimePickerInbound.TabIndex = 3;
+            // 
+            // textBoxInUnitPrice
+            // 
+            this.textBoxInUnitPrice.Location = new System.Drawing.Point(110, 82);
+            this.textBoxInUnitPrice.Name = "textBoxInUnitPrice";
+            this.textBoxInUnitPrice.Size = new System.Drawing.Size(157, 26);
+            this.textBoxInUnitPrice.TabIndex = 1;
+            this.textBoxInUnitPrice.Text = "1";
             // 
             // textBoxInNumber
             // 
-            this.textBoxInNumber.Location = new System.Drawing.Point(110, 91);
+            this.textBoxInNumber.Location = new System.Drawing.Point(110, 125);
             this.textBoxInNumber.Name = "textBoxInNumber";
             this.textBoxInNumber.Size = new System.Drawing.Size(157, 26);
-            this.textBoxInNumber.TabIndex = 3;
+            this.textBoxInNumber.TabIndex = 2;
             this.textBoxInNumber.Text = "1";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(23, 213);
+            this.label9.Location = new System.Drawing.Point(23, 229);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 16);
             this.label9.TabIndex = 1;
@@ -388,17 +427,26 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 148);
+            this.label5.Location = new System.Drawing.Point(23, 180);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 16);
             this.label5.TabIndex = 1;
             this.label5.Tag = "";
             this.label5.Text = "日期";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(23, 86);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(42, 16);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "单价";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 93);
+            this.label6.Location = new System.Drawing.Point(23, 127);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 16);
             this.label6.TabIndex = 1;
@@ -412,7 +460,7 @@
             this.comboBoxInGoods.Name = "comboBoxInGoods";
             this.comboBoxInGoods.Size = new System.Drawing.Size(157, 24);
             this.comboBoxInGoods.Sorted = true;
-            this.comboBoxInGoods.TabIndex = 2;
+            this.comboBoxInGoods.TabIndex = 0;
             // 
             // label8
             // 
@@ -427,6 +475,7 @@
             // 
             this.listViewInbound.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chInboundGoods,
+            this.chInboundUnitPrice,
             this.chInboundNumber,
             this.chInboundDate,
             this.chInboundMemo});
@@ -444,6 +493,10 @@
             this.chInboundGoods.Text = "货品";
             this.chInboundGoods.Width = 150;
             // 
+            // chInboundUnitPrice
+            // 
+            this.chInboundUnitPrice.Text = "单价";
+            // 
             // chInboundNumber
             // 
             this.chInboundNumber.Text = "数量";
@@ -458,6 +511,15 @@
             // 
             this.chInboundMemo.Text = "备注";
             this.chInboundMemo.Width = 200;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(17, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(127, 16);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "最近七天明细：";
             // 
             // maintain
             // 
@@ -550,7 +612,6 @@
             this.listViewGoods.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.chGoodsName,
             this.chGoodsTotal,
-            this.chGoodsPrice,
             this.chGoodsMemo});
             this.listViewGoods.FullRowSelect = true;
             this.listViewGoods.GridLines = true;
@@ -567,10 +628,9 @@
             this.chGoodsName.Text = "名称";
             this.chGoodsName.Width = 150;
             // 
-            // chGoodsPrice
+            // chGoodsTotal
             // 
-            this.chGoodsPrice.Text = "价格";
-            this.chGoodsPrice.Width = 70;
+            this.chGoodsTotal.Text = "库存";
             // 
             // chGoodsMemo
             // 
@@ -599,34 +659,18 @@
             // 
             // search
             // 
+            this.search.Controls.Add(this.listViewStatic);
+            this.search.Controls.Add(this.button2);
+            this.search.Controls.Add(this.buttonStaticStart);
+            this.search.Controls.Add(this.label13);
+            this.search.Controls.Add(this.dateTimePickerStop);
+            this.search.Controls.Add(this.dateTimePickerStart);
             this.search.Location = new System.Drawing.Point(4, 26);
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(980, 542);
             this.search.TabIndex = 3;
-            this.search.Text = "查询";
+            this.search.Text = "统计";
             this.search.UseVisualStyleBackColor = true;
-            // 
-            // chGoodsTotal
-            // 
-            this.chGoodsTotal.Text = "库存";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(17, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(127, 16);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "最近七天明细：";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(26, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(127, 16);
-            this.label11.TabIndex = 6;
-            this.label11.Text = "最近七天明细：";
             // 
             // labelDatetime
             // 
@@ -638,6 +682,95 @@
             this.labelDatetime.Size = new System.Drawing.Size(188, 16);
             this.labelDatetime.TabIndex = 1;
             this.labelDatetime.Text = "2019-03-10  20:36:48";
+            // 
+            // dateTimePickerStart
+            // 
+            this.dateTimePickerStart.Location = new System.Drawing.Point(72, 19);
+            this.dateTimePickerStart.Name = "dateTimePickerStart";
+            this.dateTimePickerStart.Size = new System.Drawing.Size(150, 26);
+            this.dateTimePickerStart.TabIndex = 0;
+            // 
+            // dateTimePickerStop
+            // 
+            this.dateTimePickerStop.Location = new System.Drawing.Point(272, 19);
+            this.dateTimePickerStop.Name = "dateTimePickerStop";
+            this.dateTimePickerStop.Size = new System.Drawing.Size(150, 26);
+            this.dateTimePickerStop.TabIndex = 0;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(236, 24);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 16);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "至";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // buttonStaticStart
+            // 
+            this.buttonStaticStart.Location = new System.Drawing.Point(528, 18);
+            this.buttonStaticStart.Name = "buttonStaticStart";
+            this.buttonStaticStart.Size = new System.Drawing.Size(60, 28);
+            this.buttonStaticStart.TabIndex = 2;
+            this.buttonStaticStart.Text = "开始";
+            this.buttonStaticStart.UseVisualStyleBackColor = true;
+            this.buttonStaticStart.Click += new System.EventHandler(this.buttonStaticStart_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(617, 19);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(60, 26);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "导出";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // listViewStatic
+            // 
+            this.listViewStatic.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chStaticUser,
+            this.chStaticGoods,
+            this.chStaticNumber,
+            this.chStaticUnitPrice,
+            this.chStaticDate});
+            this.listViewStatic.FullRowSelect = true;
+            this.listViewStatic.GridLines = true;
+            this.listViewStatic.Location = new System.Drawing.Point(15, 53);
+            this.listViewStatic.Name = "listViewStatic";
+            this.listViewStatic.Size = new System.Drawing.Size(940, 471);
+            this.listViewStatic.TabIndex = 3;
+            this.listViewStatic.UseCompatibleStateImageBehavior = false;
+            this.listViewStatic.View = System.Windows.Forms.View.Details;
+            // 
+            // chStaticUser
+            // 
+            this.chStaticUser.Text = "使用人";
+            this.chStaticUser.Width = 70;
+            // 
+            // chStaticGoods
+            // 
+            this.chStaticGoods.Text = "货品";
+            this.chStaticGoods.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.chStaticGoods.Width = 150;
+            // 
+            // chStaticNumber
+            // 
+            this.chStaticNumber.Text = "数量 ";
+            this.chStaticNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.chStaticNumber.Width = 70;
+            // 
+            // chStaticUnitPrice
+            // 
+            this.chStaticUnitPrice.Text = "单价";
+            this.chStaticUnitPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.chStaticUnitPrice.Width = 80;
+            // 
+            // chStaticDate
+            // 
+            this.chStaticDate.Text = "日期";
+            this.chStaticDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.chStaticDate.Width = 100;
             // 
             // Form1
             // 
@@ -665,6 +798,8 @@
             this.maintain.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.search.ResumeLayout(false);
+            this.search.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -716,7 +851,6 @@
         private System.Windows.Forms.ColumnHeader chMemo;
         private System.Windows.Forms.TextBox textBoxMemo;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ColumnHeader chGoodsPrice;
         private System.Windows.Forms.ColumnHeader chUserMemo;
         private System.Windows.Forms.Button buttonOutboundDel;
         private System.Windows.Forms.ColumnHeader chInboundGoods;
@@ -730,6 +864,21 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labelDatetime;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxInUnitPrice;
+        private System.Windows.Forms.ColumnHeader chInboundUnitPrice;
+        private System.Windows.Forms.ColumnHeader chOutUnitPrice;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStop;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStart;
+        private System.Windows.Forms.ListView listViewStatic;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonStaticStart;
+        private System.Windows.Forms.ColumnHeader chStaticUser;
+        private System.Windows.Forms.ColumnHeader chStaticGoods;
+        private System.Windows.Forms.ColumnHeader chStaticNumber;
+        private System.Windows.Forms.ColumnHeader chStaticUnitPrice;
+        private System.Windows.Forms.ColumnHeader chStaticDate;
     }
 }
 
