@@ -57,3 +57,9 @@ E:\Git\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.GoodsEdit.resou
 E:\Git\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.Properties.Resources.resources
 E:\Git\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.UserEdit.resources
 E:\Git\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.csproj.GenerateResource.Cache
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.dll
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.OOXML.dll
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.OpenXml4Net.dll
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.OpenXmlFormats.dll
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.xml

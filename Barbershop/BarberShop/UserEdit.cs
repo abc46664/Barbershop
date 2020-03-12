@@ -37,6 +37,7 @@ namespace BarberShop
             string sql = string.Format("insert into user(Name,Tel,Memo) values('{0}','{1}','{2}')",name,tel,memo);
            
             sh.ExecuteNonQuery(sql);
+            MessageBox.Show("增加成功");
         }
 
       

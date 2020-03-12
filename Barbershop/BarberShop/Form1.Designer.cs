@@ -89,18 +89,21 @@
             this.buttonGoodsDel = new System.Windows.Forms.Button();
             this.buttonGoodsAdd = new System.Windows.Forms.Button();
             this.search = new System.Windows.Forms.TabPage();
-            this.labelDatetime = new System.Windows.Forms.Label();
-            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerStop = new System.Windows.Forms.DateTimePicker();
-            this.label13 = new System.Windows.Forms.Label();
-            this.buttonStaticStart = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.listViewRemain = new System.Windows.Forms.ListView();
+            this.chStaticOutGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cnStaticOutRemain = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewStatic = new System.Windows.Forms.ListView();
             this.chStaticUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStaticGoods = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStaticNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStaticUnitPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.chStaticDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.buttonStaticStart = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.dateTimePickerStop = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.labelDatetime = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.outbound.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -659,8 +662,9 @@
             // 
             // search
             // 
+            this.search.Controls.Add(this.listViewRemain);
             this.search.Controls.Add(this.listViewStatic);
-            this.search.Controls.Add(this.button2);
+            this.search.Controls.Add(this.buttonExport);
             this.search.Controls.Add(this.buttonStaticStart);
             this.search.Controls.Add(this.label13);
             this.search.Controls.Add(this.dateTimePickerStop);
@@ -672,59 +676,29 @@
             this.search.Text = "统计";
             this.search.UseVisualStyleBackColor = true;
             // 
-            // labelDatetime
+            // listViewRemain
             // 
-            this.labelDatetime.AutoSize = true;
-            this.labelDatetime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelDatetime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.labelDatetime.Location = new System.Drawing.Point(809, 13);
-            this.labelDatetime.Name = "labelDatetime";
-            this.labelDatetime.Size = new System.Drawing.Size(188, 16);
-            this.labelDatetime.TabIndex = 1;
-            this.labelDatetime.Text = "2019-03-10  20:36:48";
+            this.listViewRemain.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chStaticOutGoods,
+            this.cnStaticOutRemain});
+            this.listViewRemain.FullRowSelect = true;
+            this.listViewRemain.GridLines = true;
+            this.listViewRemain.Location = new System.Drawing.Point(613, 55);
+            this.listViewRemain.Name = "listViewRemain";
+            this.listViewRemain.Size = new System.Drawing.Size(345, 463);
+            this.listViewRemain.TabIndex = 4;
+            this.listViewRemain.UseCompatibleStateImageBehavior = false;
+            this.listViewRemain.View = System.Windows.Forms.View.Details;
             // 
-            // dateTimePickerStart
+            // chStaticOutGoods
             // 
-            this.dateTimePickerStart.Location = new System.Drawing.Point(72, 19);
-            this.dateTimePickerStart.Name = "dateTimePickerStart";
-            this.dateTimePickerStart.Size = new System.Drawing.Size(150, 26);
-            this.dateTimePickerStart.TabIndex = 0;
+            this.chStaticOutGoods.Text = "货品";
+            this.chStaticOutGoods.Width = 150;
             // 
-            // dateTimePickerStop
+            // cnStaticOutRemain
             // 
-            this.dateTimePickerStop.Location = new System.Drawing.Point(272, 19);
-            this.dateTimePickerStop.Name = "dateTimePickerStop";
-            this.dateTimePickerStop.Size = new System.Drawing.Size(150, 26);
-            this.dateTimePickerStop.TabIndex = 0;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(236, 24);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 16);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "至";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
-            // 
-            // buttonStaticStart
-            // 
-            this.buttonStaticStart.Location = new System.Drawing.Point(528, 18);
-            this.buttonStaticStart.Name = "buttonStaticStart";
-            this.buttonStaticStart.Size = new System.Drawing.Size(60, 28);
-            this.buttonStaticStart.TabIndex = 2;
-            this.buttonStaticStart.Text = "开始";
-            this.buttonStaticStart.UseVisualStyleBackColor = true;
-            this.buttonStaticStart.Click += new System.EventHandler(this.buttonStaticStart_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(617, 19);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(60, 26);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "导出";
-            this.button2.UseVisualStyleBackColor = true;
+            this.cnStaticOutRemain.Text = "库存";
+            this.cnStaticOutRemain.Width = 100;
             // 
             // listViewStatic
             // 
@@ -736,9 +710,9 @@
             this.chStaticDate});
             this.listViewStatic.FullRowSelect = true;
             this.listViewStatic.GridLines = true;
-            this.listViewStatic.Location = new System.Drawing.Point(15, 53);
+            this.listViewStatic.Location = new System.Drawing.Point(15, 50);
             this.listViewStatic.Name = "listViewStatic";
-            this.listViewStatic.Size = new System.Drawing.Size(940, 471);
+            this.listViewStatic.Size = new System.Drawing.Size(527, 469);
             this.listViewStatic.TabIndex = 3;
             this.listViewStatic.UseCompatibleStateImageBehavior = false;
             this.listViewStatic.View = System.Windows.Forms.View.Details;
@@ -771,6 +745,61 @@
             this.chStaticDate.Text = "日期";
             this.chStaticDate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.chStaticDate.Width = 100;
+            // 
+            // buttonExport
+            // 
+            this.buttonExport.Location = new System.Drawing.Point(644, 7);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(60, 26);
+            this.buttonExport.TabIndex = 2;
+            this.buttonExport.Text = "导出";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // buttonStaticStart
+            // 
+            this.buttonStaticStart.Location = new System.Drawing.Point(555, 6);
+            this.buttonStaticStart.Name = "buttonStaticStart";
+            this.buttonStaticStart.Size = new System.Drawing.Size(60, 28);
+            this.buttonStaticStart.TabIndex = 2;
+            this.buttonStaticStart.Text = "统计";
+            this.buttonStaticStart.UseVisualStyleBackColor = true;
+            this.buttonStaticStart.Click += new System.EventHandler(this.buttonStaticStart_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(305, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 16);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "至";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // dateTimePickerStop
+            // 
+            this.dateTimePickerStop.Location = new System.Drawing.Point(341, 7);
+            this.dateTimePickerStop.Name = "dateTimePickerStop";
+            this.dateTimePickerStop.Size = new System.Drawing.Size(150, 26);
+            this.dateTimePickerStop.TabIndex = 0;
+            // 
+            // dateTimePickerStart
+            // 
+            this.dateTimePickerStart.Location = new System.Drawing.Point(141, 7);
+            this.dateTimePickerStart.Name = "dateTimePickerStart";
+            this.dateTimePickerStart.Size = new System.Drawing.Size(150, 26);
+            this.dateTimePickerStart.TabIndex = 0;
+            // 
+            // labelDatetime
+            // 
+            this.labelDatetime.AutoSize = true;
+            this.labelDatetime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelDatetime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.labelDatetime.Location = new System.Drawing.Point(809, 13);
+            this.labelDatetime.Name = "labelDatetime";
+            this.labelDatetime.Size = new System.Drawing.Size(188, 16);
+            this.labelDatetime.TabIndex = 1;
+            this.labelDatetime.Text = "2019-03-10  20:36:48";
             // 
             // Form1
             // 
@@ -872,13 +901,16 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerStop;
         private System.Windows.Forms.DateTimePicker dateTimePickerStart;
         private System.Windows.Forms.ListView listViewStatic;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonStaticStart;
         private System.Windows.Forms.ColumnHeader chStaticUser;
         private System.Windows.Forms.ColumnHeader chStaticGoods;
         private System.Windows.Forms.ColumnHeader chStaticNumber;
         private System.Windows.Forms.ColumnHeader chStaticUnitPrice;
         private System.Windows.Forms.ColumnHeader chStaticDate;
+        private System.Windows.Forms.ListView listViewRemain;
+        private System.Windows.Forms.ColumnHeader chStaticOutGoods;
+        private System.Windows.Forms.ColumnHeader cnStaticOutRemain;
     }
 }
 

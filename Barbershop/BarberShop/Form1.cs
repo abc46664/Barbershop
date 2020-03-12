@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using NPOI.SS.UserModel;
+using System.IO;
 
 namespace BarberShop
 {
@@ -13,6 +15,8 @@ namespace BarberShop
     {
         string _db = "";
         Timer _timer = new Timer();
+        DataTable _exportUse = null;
+        DataTable _exportRemaining = null;
         public Form1()
         {
             InitializeComponent();
@@ -170,6 +174,7 @@ namespace BarberShop
                     OnSelMaintain();
                     break;
                 case 3:
+                    OnSelQuery();
                     break;
             }
         }
@@ -341,6 +346,7 @@ namespace BarberShop
         }
         void OnSelQuery()
         {
+            dateTimePickerStart.Value =  dateTimePickerStop.Value.AddMonths(-1);
         }
 
         private void buttonInSave_Click(object sender, EventArgs e)
@@ -379,15 +385,14 @@ namespace BarberShop
                 return;
             }
 
-            string date = dateTimePickerInbound.Value.ToString("yyyy-MM-dd");
-            string sql = string.Format("update goods set Number=Number+{0} where ID = {1}", number,gid);
+            string date = dateTimePickerInbound.Value.ToString("yyyy-MM-dd");            
             string sql1 = string.Format("insert into inbound (GoodsName,GoodsID,InDate,Number,Memo,UnitPrice,Remaining) values('{0}',{1},'{2}',{3},'{4}',{5},{6})",
                 newgoods, gid, date, number, memo, nunitPrice, number);
             SQLiteHelper sh = new SQLiteHelper();
             try
             {
                 List<string> ls = new List<string>();
-                ls.Add(sql);
+               
                 ls.Add(sql1);
                 sh.ExecuteNonQueryBatch(ls);
             }
@@ -552,15 +557,16 @@ namespace BarberShop
 
         private void buttonStaticStart_Click(object sender, EventArgs e)
         {
+            _exportUse = null;
             listViewStatic.Items.Clear();
             SQLiteHelper sh = new SQLiteHelper ();
             string date1 = dateTimePickerStart.Value.ToString("yyyy-MM-dd");
             string date2 = dateTimePickerStop.Value.ToString("yyyy-MM-dd");
-            DataTable dt = sh.ExecuteQuery(string.Format("select * from outbound where OutDate>='{0}' and OutDate<='{1}' order by User desc,OutDate ", date1, date2));
+            _exportUse = sh.ExecuteQuery(string.Format("select * from outbound where date(OutDate)>='{0}' and date(OutDate)<='{1}' order by User desc,OutDate ", date1, date2));
             string user = "";
             int number = 0;
             int price = 0;
-            foreach (DataRow dr in dt.Rows)
+            foreach (DataRow dr in _exportUse.Rows)
             {
                 string tmpuser =  dr["User"].ToString();
                 if (user == "")
@@ -584,8 +590,10 @@ namespace BarberShop
                 string[] d1= dr["OutDate"].ToString().Split(' ');
                 lvi.SubItems.Add(d1[0]);
                 listViewStatic.Items.Add(lvi);
-                number += int.Parse(dr["Number"].ToString());
-                price += int.Parse(dr["UnitPrice"].ToString());
+                int tmpNumber = int.Parse(dr["Number"].ToString());
+                int tmpPrice = int.Parse(dr["UnitPrice"].ToString());
+                number += tmpNumber;
+                price += tmpPrice * tmpNumber;
             }
             ListViewItem tlvi1 = new ListViewItem();
             tlvi1 = new ListViewItem();
@@ -593,7 +601,154 @@ namespace BarberShop
             tlvi1.SubItems.Add(string.Format("{0}", price));
             ListViewItem rlvi1 = listViewStatic.Items.Add(tlvi1);
             rlvi1.BackColor = Color.FromArgb(187,255, 255);
+
+            listViewRemain.Items.Clear();
+            string sql = string.Format("select GoodsName ,sum(Remaining) as Remain from inbound  where Deleted = 'F' and Remaining >0 and date(CrtDate)>='{0}' and date(CrtDate)<='{1}' group by GoodsName", date1, date2);
+           _exportRemaining =  sh.ExecuteQuery(sql);
+           foreach(DataRow dr in _exportRemaining.Rows)
+           {
+               ListViewItem vi = new ListViewItem();
+               vi.Text = dr["GoodsName"].ToString();
+               vi.SubItems.Add(dr["Remain"].ToString());
+               listViewRemain.Items.Add(vi);
+           }
+            
         }
+
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            if (_exportRemaining == null || _exportUse == null)
+            {
+                MessageBox.Show("请先统计，然后再导出");
+                return;
+            }
+            NOPIHelper helper = new NOPIHelper();
+            helper.Create();
+            string user = "";
+            int number = 0;
+            int price = 0; 
+            ISheet sheet = null;
+            IRow row = null;
+            ICell cell = null;
+            IFont font = null;
+            ICellStyle csTitle = null;
+            ICellStyle csText = null;
+            foreach (DataRow dr in _exportUse.Rows)
+            {
+                string tmpuser = dr["User"].ToString();
+               
+                if (user == "" || user != tmpuser)
+                {
+                    if (user.Length>0 && user != tmpuser)
+                    {
+                        row = helper.CreateRow(sheet);
+                        cell = helper.CreateCell(row);
+                        cell = helper.CreateCell(row);
+                        cell = helper.CreateCell(row);
+                        cell.SetCellValue(number);
+
+                        cell = helper.CreateCell(row);
+                        cell.SetCellValue(price);
+                    }
+                    number = 0;
+                    price = 0;
+                    user = tmpuser;
+                    sheet = helper.CreateSheet(tmpuser);
+                    row =  helper.CreateRow(sheet);
+                    cell =  helper.CreateCell(row);
+                     font = helper.WorkBook.CreateFont();
+                    font.IsBold = true;
+                    font.FontHeightInPoints = 12;
+                     csTitle =  helper.WorkBook.CreateCellStyle();
+                    csTitle.SetFont(font);
+                    csTitle.VerticalAlignment = VerticalAlignment.Center;
+                    cell.CellStyle = csTitle;
+                    cell.SetCellValue("使用人");
+                    cell = helper.CreateCell(row);
+                    cell.CellStyle = csTitle;
+                    cell.SetCellValue("货品");
+                    cell = helper.CreateCell(row);
+                    cell.CellStyle = csTitle;
+                    cell.SetCellValue("数量");
+                    cell = helper.CreateCell(row);
+                    cell.CellStyle = csTitle;
+                    cell.SetCellValue("单价");
+                    cell = helper.CreateCell(row);
+                    cell.CellStyle = csTitle;
+                    cell.SetCellValue("出库日期");
+                  
+                }
+                font = helper.WorkBook.CreateFont();
+                font.IsBold = false;
+                font.FontHeightInPoints = 11;
+                csText = helper.WorkBook.CreateCellStyle();
+                csText.SetFont(font);
+                 row = helper.CreateRow(sheet);
+                 cell = helper.CreateCell(row);
+
+                 cell.CellStyle = csText;
+                 cell.SetCellValue(dr["User"].ToString());
+                 cell = helper.CreateCell(row);
+                 cell.CellStyle = csText;
+                 cell.SetCellValue(dr["GoodsName"].ToString());
+                 cell = helper.CreateCell(row);
+                 cell.CellStyle = csText;
+                 cell.SetCellValue(dr["Number"].ToString());
+
+                 cell = helper.CreateCell(row);
+                 cell.CellStyle = csText;
+                 cell.SetCellValue(dr["UnitPrice"].ToString());
+                 cell = helper.CreateCell(row);
+                 cell.CellStyle = csText;
+                 cell.SetCellValue(dr["OutDate"].ToString().Split(' ')[0]);
+
+                 int tmpNumber = int.Parse(dr["Number"].ToString());
+                 int tmpPrice = int.Parse(dr["UnitPrice"].ToString());
+
+                 number += tmpNumber;
+                 price += tmpNumber * tmpPrice;
+            }
+            row = helper.CreateRow(sheet);
+            cell = helper.CreateCell(row);
+            cell = helper.CreateCell(row);
+            cell = helper.CreateCell(row);
+            cell.SetCellValue(number);
+            
+            cell = helper.CreateCell(row);
+            cell.SetCellValue(price);
+
+            sheet =  helper.CreateSheet("库存统计");
+            row=  helper.CreateRow(sheet);
+            cell = helper.CreateCell(row);
+            cell.CellStyle = csTitle;
+            cell.SetCellValue("货品");
+            cell = helper.CreateCell(row);
+            cell.CellStyle = csTitle;
+            cell.SetCellValue("库存结余");
+            foreach (DataRow dr in _exportRemaining.Rows)
+            {
+                row = helper.CreateRow(sheet);
+                cell = helper.CreateCell(row);
+                cell.CellStyle = csText;
+                cell.SetCellValue(dr["GoodsName"].ToString());
+                cell = helper.CreateCell(row);
+                cell.CellStyle = csText;
+                cell.SetCellValue(dr["Remain"].ToString());
+            }
+
+            string path = AppDomain.CurrentDomain.BaseDirectory + "导出";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string date1 = dateTimePickerStart.Value.ToString("yyyy-MM-dd");
+            string date2 = dateTimePickerStop.Value.ToString("yyyy-MM-dd");
+            string date = date1 +"~"+ date2;
+            helper.Save(path+"\\出库统计"+date+".xls");
+            MessageBox.Show("导出成功");
+        }
+
+     
 
      
 

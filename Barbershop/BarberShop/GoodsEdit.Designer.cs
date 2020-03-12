@@ -35,13 +35,11 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxprice = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(93, 275);
+            this.buttonSave.Location = new System.Drawing.Point(93, 197);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(78, 31);
@@ -60,7 +58,7 @@
             // 
             // textBoxMemo
             // 
-            this.textBoxMemo.Location = new System.Drawing.Point(79, 135);
+            this.textBoxMemo.Location = new System.Drawing.Point(79, 70);
             this.textBoxMemo.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxMemo.Multiline = true;
             this.textBoxMemo.Name = "textBoxMemo";
@@ -69,7 +67,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(208, 275);
+            this.buttonCancel.Location = new System.Drawing.Point(208, 197);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(76, 31);
@@ -90,36 +88,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 138);
+            this.label2.Location = new System.Drawing.Point(21, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "备注";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 84);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "价格";
-            // 
-            // textBoxprice
-            // 
-            this.textBoxprice.Location = new System.Drawing.Point(79, 81);
-            this.textBoxprice.Name = "textBoxprice";
-            this.textBoxprice.Size = new System.Drawing.Size(214, 26);
-            this.textBoxprice.TabIndex = 1;
-            // 
             // GoodsEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 347);
-            this.Controls.Add(this.textBoxprice);
+            this.ClientSize = new System.Drawing.Size(318, 253);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxMemo);
             this.Controls.Add(this.textBoxName);
@@ -148,7 +128,5 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxprice;
     }
 }
