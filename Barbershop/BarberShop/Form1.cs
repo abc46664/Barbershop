@@ -20,6 +20,7 @@ namespace BarberShop
         public Form1()
         {
             InitializeComponent();
+            _db = AppDomain.CurrentDomain.BaseDirectory + "barbershop.db";
             _timer.Interval = 1000;
             _timer.Tick += new EventHandler(_timer_Tick);
             _timer.Start();
@@ -80,13 +81,40 @@ namespace BarberShop
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            _db = AppDomain.CurrentDomain.BaseDirectory+"barbershop.db";
-            SQLiteHelper.SetConnectionString(_db, "test");
+
+            InitDB();
+            SQLiteHelper.SetConnectionString(_db, "123barbershop");
             InitGoods();
             InitUser();
             OnSelOutbound();
            // comboBoxOutGoods.DrawMode = DrawMode.OwnerDrawVariable;
             comboBoxOutGoods.ItemHeight = 20;
+        }
+        void InitDB()
+        {
+            if (!File.Exists(_db))
+            {
+                FileStream  fs =  File.Create(_db);
+                fs.Close();
+                SQLiteHelper.SetConnectionString(_db, "");
+                SQLiteHelper sh = new SQLiteHelper();
+                string sqlgoods = "CREATE TABLE goods (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name NVARCHAR (50), Memo NVARCHAR (200), CrtDate timestamp DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime')), Deleted CHAR DEFAULT F)";
+                sh.ExecuteNonQuery(sqlgoods);
+                string sqlinbound = "CREATE TABLE inbound (ID INTEGER PRIMARY KEY AUTOINCREMENT, GoodsName nvarchar (100), GoodsID INTEGER, Number INTEGER, CrtDate timestamp DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime')), InDate DATETIME, Deleted CHAR DEFAULT F, UnitPrice INT DEFAULT (0), Memo nvarchar (200), Remaining INT DEFAULT (0))";
+                sh.ExecuteNonQuery(sqlinbound);
+                string sqloutbount = "CREATE TABLE outbound (ID INTEGER PRIMARY KEY AUTOINCREMENT, User nvarchar (10), UserID INTEGER, GoodsID INTEGER, GoodsName nvarchar (200), Number INTEGER, OutDate DATE, CrtDate timestamp DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime')), UnitPrice INT, Memo nvarchar (200), Deleted CHAR DEFAULT F, InBoundID INTEGER DEFAULT (0))";
+                sh.ExecuteNonQuery(sqloutbount);
+                string sqluser = "CREATE TABLE user (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name NVARCHAR (10), Age INT, Gender nvarchar (2), Tel nvarchar (12), Address nvarchar (50), Memo nvarchar (200), Deleted CHAR DEFAULT F, CrtData timestamp DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now', 'localtime')))";
+                sh.ExecuteNonQuery(sqluser);
+                string sqlver= "CREATE TABLE Version (Version INT)";
+                sh.ExecuteNonQuery(sqlver);
+                string sql = "insert into Version(Version ) values(1)";
+                sh.ExecuteNonQuery(sql);
+                sh.ChangePassword("123barbershop");
+            }
+
+
+
         }
         void UpdateMemUser()
         {
