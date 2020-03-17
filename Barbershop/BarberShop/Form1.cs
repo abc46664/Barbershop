@@ -83,7 +83,7 @@ namespace BarberShop
         {
 
             InitDB();
-            SQLiteHelper.SetConnectionString(_db, "123barbershop");
+            SQLiteHelper.SetConnectionString(_db, Properties.Settings.Default.password);
             InitGoods();
             InitUser();
             OnSelOutbound();
@@ -110,7 +110,7 @@ namespace BarberShop
                 sh.ExecuteNonQuery(sqlver);
                 string sql = "insert into Version(Version ) values(1)";
                 sh.ExecuteNonQuery(sql);
-                sh.ChangePassword("123barbershop");
+                sh.ChangePassword(Properties.Settings.Default.password);
             }
 
 
