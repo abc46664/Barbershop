@@ -71,3 +71,5 @@ D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\ICSharpC
 D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.OpenXmlFormats.dll
 D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\bin\Debug\NPOI.xml
 D:\Code\VC\测试\BarberShop\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.csprojResolveAssemblyReference.cache
+E:\Git\Barbershop\Barbershop\BarberShop\bin\Debug\BarberShop.exe.config
+E:\Git\Barbershop\Barbershop\BarberShop\obj\x86\Debug\BarberShop.csprojResolveAssemblyReference.cache

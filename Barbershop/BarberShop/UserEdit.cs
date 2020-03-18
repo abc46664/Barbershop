@@ -25,7 +25,7 @@ namespace BarberShop
                 return;
             }
             SQLiteHelper sh = new SQLiteHelper();
-            string check = string.Format("select ID from user where Name = '{0}'", name);
+            string check = string.Format("select ID from user where Name = '{0}' and Deleted = 'F'", name);
             DataTable dt = sh.ExecuteQuery(check);
             if (dt.Rows.Count > 0)
             {
