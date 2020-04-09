@@ -28,7 +28,7 @@ namespace BarberShop
 
         void _timer_Tick(object sender, EventArgs e)
         {
-            labelDatetime.Text =  DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            labelDatetime.Text =  DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
         bool InitGoods()
         {
